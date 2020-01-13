@@ -1,0 +1,10 @@
+.directory {
+  background-color: bisque;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.directory .active {
+  font-weight: bold;
+}

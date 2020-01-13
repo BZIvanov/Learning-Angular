@@ -1,0 +1,15 @@
+.jsx-code {
+  background-color: rgba(20, 19, 19, 0.795);
+  padding: 15px;
+  border-radius: 5px;
+  color: beige;
+  font-size: 0.8rem;
+}
+
+.jsx-code-content {
+  margin-top: 10px;
+}
+
+.code-punctuation {
+  color: white;
+}

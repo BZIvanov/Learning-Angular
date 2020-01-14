@@ -7,6 +7,7 @@ import Extensions from './lessons/extensions/extensions';
 import Utilities from './lessons/utilities/utilities';
 import Stylings from './lessons/stylings/stylings';
 import NextJS from './lessons/nextjs/nextjs';
+import Git from './lessons/git/git';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/utilities" component={Utilities} />
         <Route path="/css" component={Stylings} />
         <Route path="/nextjs" component={NextJS} />
+        <Route path="/git" component={Git} />
       </Switch>
     </BrowserRouter>
   );

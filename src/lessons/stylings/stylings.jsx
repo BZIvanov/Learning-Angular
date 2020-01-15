@@ -102,6 +102,30 @@ const Stylings = () => {
   `} breadcrumb={['my-project', 'styles.css']} />
           </div>
         </div>
+
+        <div style={{border: '1px solid green'}}>
+          <h1>@font-face</h1>
+          <p>With @font-face we can load fonts from a file.</p>
+          <div>
+            <p>For detailed info visit the documentation here: 
+              <a target="_blank" rel="noopener noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face">@font-face</a>
+            </p>
+            <p>From the sources, the first one good to use for the browser will be the one to be used.</p>
+            <OtherCode code={`
+  @font-face {
+    font-family: "Open Sans";
+    src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
+         url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .my-el {
+    font-family: "Open Sans";
+  }
+  `} breadcrumb={['my-project', 'styles.css']} />
+          </div>
+        </div>
     </div>
   );
 }

@@ -126,6 +126,25 @@ const Stylings = () => {
   `} breadcrumb={['my-project', 'styles.css']} />
           </div>
         </div>
+
+        <div style={{border: '1px solid green'}}>
+          <h1>box-sizing: border-box</h1>
+          <p>With border-box value we can change the behaviour of stacking padding and borders</p>
+          <div>
+            <p>For detailed info visit the documentation here: 
+              <a target="_blank" rel="noopener noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing">box-sizing</a>
+            </p>
+            <p>Box sizing will recalculate the width subtracting the paddings, borders etc. so the element size will be restricted to the box it is placed in. Otherwise we will have the width + paddings + borders and the element will get larger than we want it in some cases.</p>
+            <OtherCode code={`
+  my-element {
+    width: 100px;
+    padding: 20px;
+    border: 1px solid green;
+    box-sizing: border-box;
+  }
+  `} breadcrumb={['my-project', 'styles.css']} />
+          </div>
+        </div>
     </div>
   );
 }

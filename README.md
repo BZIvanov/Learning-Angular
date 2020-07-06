@@ -18,7 +18,7 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <p>{{ greeting() }} from {{ user }}</p>
 ```
 
@@ -32,7 +32,7 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <button [disabled]="!isCorrect">Click me</button>
 ```
 
@@ -52,7 +52,7 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <button (click)="changeName()">Switch user</button>
 <p>{{ name }}</p>
 ```
@@ -71,7 +71,7 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <input type="text" (input)="updateName($event)" />
 <p>{{ name }}</p>
 ```
@@ -95,7 +95,7 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <input type="text" [(ngModel)]="username" />
 <p>{{ username }}</p>
 ```
@@ -116,8 +116,81 @@ export class AppComponent {
 ```
 
 ```html
-// this is our html component file
+<!-- this is our html component file -->
 <p *ngIf="isThere">Paragraph</p>
+```
+
+2. ngFor
+
+```typescript
+// this is our ts component file
+export class AppComponent {
+  users = ['Iva', 'Martin', 'Eli'];
+}
+```
+
+```html
+<!-- this is our html component file -->
+<p *ngFor="let user of users">{{ user }}</p>
+```
+
+3. ngFor with index
+
+```typescript
+// this is our ts component file
+export class AppComponent {
+  users = ['Iva', 'Martin', 'Eli'];
+}
+```
+
+```html
+<!-- this is our html component file -->
+<p *ngFor="let user of users; let idx = index">
+  {{ user }} with index {{ idx }}
+</p>
+```
+
+### Other directives
+
+1. ngStyle
+
+```typescript
+// this is our ts component file
+export class AppComponent {
+  allowed = true;
+
+  getColor() {
+    return this.allowed ? 'green' : 'red';
+  }
+}
+```
+
+Note that using square brackets is just because we want to do propety bindings to use the value from the component. Square brackets are not closely related to the directive
+
+```html
+<!-- this is our html component file -->
+<p [ngStyle]="{ backgroundColor: getColor() }">Paragraph</p>
+```
+
+2. ngClass
+
+```typescript
+// this is our ts component file
+export class AppComponent {
+  user = 'Iva';
+}
+```
+
+```html
+<!-- this is our html component file -->
+<p [ngClass]="{ online: user.length > 0 }">{{ user }}</p>
+```
+
+```css
+/* this is our html component file */
+.online {
+  color: green;
+}
 ```
 
 ## ng generate

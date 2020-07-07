@@ -193,6 +193,54 @@ export class AppComponent {
 }
 ```
 
+## Props from parent to child
+
+### Input decorator
+
+```typescript
+// this is our ts parent component file
+export class AppComponent {
+  persons = [
+    { name: 'Iva', hobby: 'dancing', age: 27 },
+    { name: 'Martin', hobby: 'football', age: 25 },
+  ];
+}
+```
+
+```html
+<!-- this is our html parent component file -->
+<app-person-details *ngFor="let person of persons" [person]="person">
+</app-person-details>
+```
+
+Here is the child component without using alias
+
+```typescript
+// this is our ts child component file
+export class PersonDetailsComponent {
+  @Input() person: { name: string; hobby: string; age: number };
+}
+```
+
+```html
+<!-- this is our html child component file -->
+<p>{{ person.name }}</p>
+```
+
+Here is the child component using alias
+
+```typescript
+// this is our ts child component file
+export class PersonDetailsComponent {
+  @Input('person') personProps: { name: string; hobby: string; age: number };
+}
+```
+
+```html
+<!-- this is our html child component file -->
+<p>{{ personProps.name }}</p>
+```
+
 ## ng generate
 
 With the CLI we can automatically create modules, components, service etc. instead of creating them manually.

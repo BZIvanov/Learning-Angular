@@ -241,6 +241,70 @@ export class PersonDetailsComponent {
 <p>{{ personProps.name }}</p>
 ```
 
+## Props from child to parent
+
+### Output decorator and Event Emitter
+
+```typescript
+// this is our ts parent component file
+export class AppComponent {
+  persons = [
+    { name: 'Iva', hobby: 'dancing', age: 27 },
+    { name: 'Martin', hobby: 'football', age: 25 },
+  ];
+
+  onPersonAdd(person: { name: string; hobby: string; age: number }) {
+    const { name, hobby, age } = person;
+    this.persons.push({
+      name,
+      hobby,
+      age,
+    });
+  }
+}
+```
+
+```html
+<!-- this is our html parent component file -->
+<app-create-person (addPerson)="onPersonAdd($event)"></app-create-person>
+```
+
+```typescript
+// this is our ts child component file
+export class CreatePersonComponent {
+  @Output() addPerson = new EventEmitter<{
+    name: string;
+    hobby: string;
+    age: number;
+  }>();
+
+  onCreatePerson() {
+    this.addPerson.emit({
+      name: 'Eli',
+      hobby: 'skiing',
+      age: 24,
+    });
+  }
+}
+```
+
+```html
+<!-- this is our html child component file -->
+<button (click)="onCreatePerson()">Create User</button>
+```
+
+## Scoped styles
+
+```typescript
+@Component({
+  selector: 'app-create-person',
+  templateUrl: './create-person.component.html',
+  styleUrls: ['./create-person.component.css'],
+  encapsulation: ViewEncapsulation.None,
+})
+export class CreatePersonComponent {}
+```
+
 ## ng generate
 
 With the CLI we can automatically create modules, components, service etc. instead of creating them manually.

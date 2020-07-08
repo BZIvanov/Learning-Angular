@@ -339,6 +339,82 @@ export class MyComponent {
 export class CreatePersonComponent {}
 ```
 
+## Custom Directives
+
+This approach would work, but accessing the DOM elements is not a good practice.
+
+```typescript
+// this is our ts module file
+@NgModule({
+  declarations: [BasicHighlightDirective],
+})
+export class AppModule {}
+```
+
+```typescript
+// this is our ts directive file
+@Directive({
+  selector: '[appBasicHighlight]',
+})
+export class BasicHighlightDirective implements OnInit {
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+
+  ngOnInit() {
+    this.renderer.setStyle(
+      this.elRef.nativeElement,
+      'background-color',
+      'blue'
+    );
+  }
+}
+```
+
+```html
+<!-- this is our html file using the directive -->
+<p appBasicHighlight>I am inside component tags</p>
+```
+
+This is better approach, than previous and we can also react to some events, not just static behaviour
+
+```typescript
+// this is our ts module file
+@NgModule({
+  declarations: [BasicHighlightDirective],
+})
+export class AppModule {}
+```
+
+```typescript
+// this is our ts directive file
+@Directive({
+  selector: '[appBasicHighlight]',
+})
+export class BasicHighlightDirective {
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
+
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.renderer.setStyle(
+      this.elRef.nativeElement,
+      'background-color',
+      'blue'
+    );
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    this.renderer.setStyle(
+      this.elRef.nativeElement,
+      'background-color',
+      'transparent'
+    );
+  }
+}
+```
+
+```html
+<!-- this is our html file using the directive -->
+<p appBasicHighlight>I am inside component tags</p>
+```
+
 ## ng generate
 
 With the CLI we can automatically create modules, components, service etc. instead of creating them manually.

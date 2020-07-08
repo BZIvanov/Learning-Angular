@@ -293,6 +293,40 @@ export class CreatePersonComponent {
 <button (click)="onCreatePerson()">Create User</button>
 ```
 
+## Local reference
+
+Note that this local reference is only usable in our component html file.
+
+```typescript
+// this is our ts component file
+export class MyComponent {
+  onGetValue(elValue: HTMLInputElement) {
+    console.log(elValue.value);
+  }
+}
+```
+
+```html
+<!-- this is our html component file -->
+<input type="text" #myElement />
+<button (click)="onGetValue(myElement)">Click</button>
+```
+
+## Content between component tags
+
+```html
+<!-- this is our html parent component file -->
+<app-person-details>
+  <p>I am inside component tags</p>
+</app-person-details>
+```
+
+```html
+<!-- this is our html child component file -->
+<p>This is similar to react children</p>
+<ng-content></ng-content>
+```
+
 ## Scoped styles
 
 ```typescript

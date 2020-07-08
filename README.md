@@ -415,6 +415,41 @@ export class BasicHighlightDirective {
 <p appBasicHighlight>I am inside component tags</p>
 ```
 
+Alternative to the above
+
+```typescript
+// this is our ts module file
+@NgModule({
+  declarations: [BasicHighlightDirective],
+})
+export class AppModule {}
+```
+
+```typescript
+// this is our ts directive file
+@Directive({
+  selector: '[appBasicHighlight]',
+})
+export class BasicHighlightDirective {
+  @HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
+
+  constructor() {}
+
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.backgroundColor = 'blue';
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    this.backgroundColor = 'transparent';
+  }
+}
+```
+
+```html
+<!-- this is our html file using the directive -->
+<p appBasicHighlight>I am inside component tags</p>
+```
+
 ## ng generate
 
 With the CLI we can automatically create modules, components, service etc. instead of creating them manually.

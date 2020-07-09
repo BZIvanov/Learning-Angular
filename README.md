@@ -450,6 +450,65 @@ export class BasicHighlightDirective {
 <p appBasicHighlight>I am inside component tags</p>
 ```
 
+## ngSwitch
+
+```typescript
+// this is our ts component file
+export class AppComponent {
+  value = 10;
+}
+```
+
+```html
+<!-- this is our html component file -->
+<div [ngSwitch]="value">
+  <p *ngSwitchCase="5">Value is 5</p>
+  <p *ngSwitchCase="10">Value is 10</p>
+  <p *ngSwitchCase="15">Value is 15</p>
+  <p *ngSwitchDefault>Default value</p>
+</div>
+```
+
+### Custom structural directive
+
+- Input - the value we receive from the html file
+- set - will update the directive, whenever the value from html file changes
+- TemplateRef - the content of the template we will conditionally render
+- ViewContainerRef - the location in our html file, where we want to render the template
+
+```typescript
+// this is our ts directive file
+@Directive({
+  selector: '[appCustom]',
+})
+export class CustomDirective {
+  // make sure the name is exactly as the selector
+  @Input() set appCustom(condition: boolean) {
+    if (!condition) {
+      this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.vcRef.clear();
+    }
+  }
+
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private vcRef: ViewContainerRef
+  ) {}
+}
+```
+
+```html
+<!-- this is our html file using the directive -->
+<div *appCustom="true">
+  <ul>
+    <li>First</li>
+    <li>Second</li>
+    <li>Third</li>
+  </ul>
+</div>
+```
+
 ## ng generate
 
 With the CLI we can automatically create modules, components, service etc. instead of creating them manually.

@@ -417,6 +417,8 @@ export class BasicHighlightDirective {
 
 Alternative to the above
 
+- HostBinding allows us to bind to standard attributes on html elements from the dom tree
+
 ```typescript
 // this is our ts module file
 @NgModule({
@@ -523,6 +525,16 @@ NgModule decorator contains object with some key configuring the below class. Th
 - **imports** - array of our module modules, the modules our module is using.
 - **providers** - array of our module services, services used by our module.
 - **bootstrap** - array of component with which our application will start. This is used in our main module which will tell angular with which root component app will start.
+
+## Services
+
+- To inform Angular of the service we want to use, we specify them in the providers array
+
+- In the constructor we need to specify the typescript type of what we want to use as dependency injection, which is our service and Angular will handle creating the instance of the class and providing it to us
+
+- Services have hierarchy structure. If we specify service in the providers array, the component and all it's children will have access to it, but if we also provide the service in one of the child components we will be given new instance of the service and will not inherit from the parent. If we want to use service from parent in child component all we need to do is to specify in the constructor of the component, but not in the providers array.
+
+- For services we need to use @Injectable decorator. It is used in case we want to inject another service in the constructor, but even if we don't inject anything it is still recommended to have injectable decorator. To inject another service in our service, our service needs to be in the providers of the module, not the component.
 
 ## ISSUES
 

@@ -536,6 +536,108 @@ NgModule decorator contains object with some key configuring the below class. Th
 
 - For services we need to use @Injectable decorator. It is used in case we want to inject another service in the constructor, but even if we don't inject anything it is still recommended to have injectable decorator. To inject another service in our service, our service needs to be in the providers of the module, not the component.
 
+## Routing
+
+- When using routerLink directive on anchor element if we don't specify '/' the path will be relative (appended to already existing path) otherwise it will be absolute.
+
+### Basic setup
+
+Below file will could be slightly different if it was another module, where we set routes directly in it, not using file specificaly for routing.
+
+```typescript
+// this is our app routing module file
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent,
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+  },
+  {
+    path: 'chocolates',
+    component: ChocolatesComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+
+Router outlet is the way to tell Angular, where we want the component matching the url to be rendered
+
+```html
+<!-- this is our html file with the navigation -->
+<ul>
+  <li>
+    <a
+      routerLink="/"
+      routerLinkActive="myStyle"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+  </li>
+  <li><a routerLink="/users" routerLinkActive="myStyle">Users</a></li>
+  <li>
+    <a [routerLink]="['/chocolates']" routerLinkActive="myStyle">Chocolates</a>
+  </li>
+</ul>
+
+<router-outlet></router-outlet>
+```
+
+```css
+/* this is the css file with styles for the active route */
+.myStyle {
+  color: orange;
+  background-color: orchid;
+}
+```
+
+### Navigate programatically
+
+- with absolute path
+
+```typescript
+// this is our ts component file
+export class HomeComponent {
+  constructor(private router: Router) {}
+
+  changePage() {
+    this.router.navigate(['/chocolates']);
+  }
+}
+```
+
+```html
+<!-- this is our html component file -->
+<button (click)="changePage()">Redirect</button>
+```
+
+- with relative path
+
+With Route we can get our current path
+
+```typescript
+// this is our ts component file
+export class HomeComponent {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  changePage() {
+    this.router.navigate(['chocolates'], { relativeTo: this.route });
+  }
+}
+```
+
+```html
+<!-- this is our html component file -->
+<button (click)="changePage()">Redirect</button>
+```
+
 ## ISSUES
 
 - issue with VS code with experimentalDecoratos

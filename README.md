@@ -638,6 +638,10 @@ export class HomeComponent {
 <button (click)="changePage()">Redirect</button>
 ```
 
+## ng-container
+
+- ng-container could be used similarly to react fragment if we want to put something conditionally without adding additional elements.
+
 ## ISSUES
 
 - issue with VS code with experimentalDecoratos

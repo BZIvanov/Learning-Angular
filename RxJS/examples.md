@@ -6,6 +6,8 @@
 
 - When we subscribe to observables we get as parameters 3 functions, the first is the value, the second is for potentional errors and the 3rd is for when the stream is completed and will no longer emit new values.
 
+- With async pipe we can subscribe to observables directly in our html component file, when we need the observable value.
+
 ## Demos
 
 1. Simple Observable with interval.

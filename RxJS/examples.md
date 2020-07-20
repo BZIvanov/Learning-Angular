@@ -4,6 +4,8 @@
 
 - By convention observable variable are postfixed with \$ sign
 
+- When we subscribe to observables we get as parameters 3 functions, the first is the value, the second is for potentional errors and the 3rd is for when the stream is completed and will no longer emit new values.
+
 ## Demos
 
 1. Simple Observable with interval.
@@ -48,6 +50,37 @@ export class AppComponent implements OnInit {
     const click$ = fromEvent(document, 'click');
 
     click$.subscribe((evt) => console.log(evt));
+  }
+}
+```
+
+4. Custom observable with fetch method
+
+- noop stands for no operation, because in this example we are not handling the error case
+
+```typescript
+import { Observable, noop } from 'rxjs';
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    const http$ = Observable.create((observer) => {
+      fetch('/api/courses')
+        .then((response) => {
+          return response.json;
+        })
+        .then((body) => {
+          observer.next(body);
+          observer.complete();
+        })
+        .catch((err) => {
+          observer.error(err);
+        });
+    });
+
+    http$.subscribe(
+      (courses) => console.log(courses),
+      noop,
+      () => console.log('completed')
+    );
   }
 }
 ```

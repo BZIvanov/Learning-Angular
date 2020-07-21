@@ -155,3 +155,23 @@ function createHttpObservable(url: string) {
   {{ beginnerCourses$ | async | json }}
 </div>
 ```
+
+6. Simple observable using concat and of
+
+- of operator is allowing us to create stream of some values
+
+- concat will automatically subscribe to each individual observable proivded to it and will execute one by one. For example if there is case, where our first observable will never complete the second and third will never be executed.
+
+```typescript
+import { of, concat } from 'rxjs';
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    const source1$ = of(1, 2, 3);
+    const source2$ = of(4, 5, 6);
+    const source3$ = of(7, 8, 9);
+
+    const result$ = concat(source1$, source2$, source3$);
+    result$.subscribe((val) => console.log(val));
+  }
+}
+```

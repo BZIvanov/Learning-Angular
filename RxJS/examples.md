@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
     const http$ = Observable.create((observer) => {
       fetch('/api/courses')
         .then((response) => {
-          return response.json;
+          return response.json();
         })
         .then((body) => {
           observer.next(body);
@@ -85,4 +85,73 @@ export class AppComponent implements OnInit {
     );
   }
 }
+```
+
+5. Custom observable with shared streams
+
+- With shareReplay we can avoid making double request to our API. Every next created from the courses stream will get the same data as the first stream without making new http request.
+
+```typescript
+export interface Course {
+  id: number;
+  description: string;
+  iconUrl: string;
+  courseListIcon: string;
+  longDescription: string;
+  category: string;
+  lessonsCount: number;
+}
+```
+
+```typescript
+import { Observable } from 'rxjs';
+import { map, tap, shareReplay } from 'rxjs/operators';
+export class AppComponent implements OnInit {
+  beginnerCourses$: Observable<Course[]>;
+  advancedCourses$: Observable<Course[]>;
+
+  ngOnInit() {
+    const http$ = createHttpObservable('http://localhost:9000/api/courses');
+
+    const courses$ = http$.pipe(
+      tap(() => console.log('http request executed')),
+      map((res) => Object.values(res['payload'])),
+      shareReplay()
+    );
+
+    this.beginnerCourses$ = courses$.pipe(
+      map((courses: Course[]) =>
+        courses.filter((course) => course.category === 'BEGINNER')
+      )
+    );
+
+    this.advancedCourses$ = courses$.pipe(
+      map((courses: Course[]) =>
+        courses.filter((course) => course.category === 'ADVANCED')
+      )
+    );
+  }
+}
+
+function createHttpObservable(url: string) {
+  return Observable.create((observer) => {
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        observer.next(body);
+        observer.complete();
+      })
+      .catch((err) => {
+        observer.error(err);
+      });
+  });
+}
+```
+
+```html
+<div>
+  {{ beginnerCourses$ | async | json }}
+</div>
 ```

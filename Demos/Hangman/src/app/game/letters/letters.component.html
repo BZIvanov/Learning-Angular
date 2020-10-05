@@ -1,0 +1,6 @@
+<button 
+    class="btn btn-primary" 
+    type="button" 
+    (click)="letterClick()"
+    [disabled]="!letterObj.isAvailable"
+>{{ letterObj.letter }}</button>

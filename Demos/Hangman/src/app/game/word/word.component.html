@@ -1,0 +1,5 @@
+<div class="btn btn-info" *ngIf="letterObj.isAvailable; else revealed" >{{ letterObj.letter }}</div>
+
+<ng-template #revealed>
+    <div class="btn btn-info">_</div>
+</ng-template>

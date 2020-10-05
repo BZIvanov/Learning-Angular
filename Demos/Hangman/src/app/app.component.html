@@ -1,0 +1,32 @@
+<div class="row d-flex justify-content-around m-2">
+  <app-letters 
+    class="m-1" 
+    *ngFor="let l of gameArray" 
+    [letterObj]="l"
+    (emitLetter)="letterChosen($event)"
+  ></app-letters>
+</div>
+
+<div class="row d-flex justify-content-center m-2">
+  <app-word class="m-1" *ngFor="let l of secretWord.letters" [letterObj]="l"></app-word>
+</div>
+<hr>
+
+<div class="row m-2">
+  <div class="col text-center">
+      <h2 *ngIf="hint">Hint: <span class="info">{{ hint }}</span></h2>
+      <h2 *ngIf="isWinner">You win! :)</h2>
+      <h3 *ngIf="!isWinner">Remaining attempts: <span class="info">{{ 10 - attempts }}</span></h3>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center m-2">
+  <app-canvas-object [attempts]="attempts"></app-canvas-object>
+</div>
+<hr>
+
+<div class="row d-flex justify-content-center m-2">
+  <button class="btn btn-success" (click)="getHint()">Get Hint!</button>
+  <button class="btn btn-danger" (click)="playAgain()">Play Again!</button>
+</div>
+<!-- <router-outlet></router-outlet> -->

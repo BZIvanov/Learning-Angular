@@ -1,4 +1,4 @@
-# :a: Learning materials for Angular as part of the SoftUni course :a:
+# :a: Learning materials for Angular :a:
 
 ## TypeScript
 
